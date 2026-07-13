@@ -1,41 +1,65 @@
-# CP Analytics
+# CP Tracker 🚀
 
-A professional, unified developer dashboard designed to track, visualize, and analyze competitive programming performance across multiple platforms (LeetCode and AtCoder). Engineered to help developers monitor their growth and benchmark performance against peers.
+[![GitHub Repo stars](https://img.shields.io/github/stars/yourusername/cp-tracker?style=social)](https://github.com/yourusername/cp-tracker)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/cp-tracker?style=social)](https://github.com/yourusername/cp-tracker)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+> **One-line Tagline:** A unified dashboard for competitive programming analytics and DSA training.
 
 ---
 
-## 🚀 Features
+## 📖 Project Overview
+Competitive programmers often struggle to maintain a holistic view of their progress across different platforms like LeetCode, Codeforces, and AtCoder. **CP Tracker** solves this by aggregating data, visualizing growth trends, and providing advanced comparison tools to optimize your training regimen. Whether you are prepping for FAANG interviews or climbing the leaderboard, this dashboard turns raw data into a roadmap for mastery.
 
-*   **Unified Dashboard:** Real-time rating graphs and comprehensive stats for both LeetCode and AtCoder in a single interface.
-*   **Interactive Analytics:** History tracking with dynamic filtering capabilities (Last 10, 25, 50, and All-time contests).
-*   **Competitor Compare Mode:** Side-by-side performance comparison with automated highlighting of superior stats in green.
-*   **Secure Authentication:** User accounts and session persistence managed via Supabase Auth.
-*   **Premium UI/UX:** Responsive dark-themed layout built with highly optimized custom Vanilla CSS.
+---
+
+## ⚡ Features
+
+### 📊 Dashboard & Analytics
+*   **Platform Integration:** Real-time synchronization with major competitive programming platforms.
+*   **Performance Visualization:** Advanced charts displaying rating history, contest participation, and problem-solving velocity.
+*   **Dynamic Filtering:** Analyze your performance over various time windows (Last 10, 25, 50, and All-time).
+*   **Competitor Comparison:** Side-by-side benchmarking against peers with automated performance highlighting.
+
+### 📚 DSA & Progress Tracking
+*   **DSA Sheet Integration:** Track your completion progress on industry-standard coding sheets.
+*   **Progress Indicators:** Visual progress bars for topic-wise mastery.
+*   **Submission History:** Persistent storage and retrieval of past coding attempts.
+
+### 🎨 UI/UX & Core Experience
+*   **Responsive Dark Theme:** A premium, eye-friendly layout optimized for long study sessions.
+*   **Secure Auth:** Robust account management with session persistence powered by Supabase.
+*   **Optimized Performance:** Seamless UX with skeleton loaders and micro-animations.
+
+---
+
+## 🖼 Screenshots
+*(Add your project GIFs or screenshots here to grab recruiter attention)*
+| Dashboard Overview | Comparison View |
+| :---: | :---: |
+| 🚧 [Insert GIF/Image] | 🚧 [Insert GIF/Image] |
 
 ---
 
 ## 🛠 Tech Stack
-
-*   **Frontend:** React (Vite), React Router, Vanilla CSS
-*   **Backend:** Node.js, Express, Axios
-*   **Database & Auth:** Supabase
-*   **APIs:** Clist API (v4), Kenkoooo API (v3), Alfa LeetCode API
+*   **Frontend:** React, Vite, React Router, Custom Vanilla CSS
+*   **Backend:** Node.js, Express
+*   **Database:** Supabase (PostgreSQL)
+*   **Authentication:** Supabase Auth
+*   **APIs:** Clist API, Kenkoooo API, Alfa LeetCode API
 
 ---
 
-## 📂 Project Structure
-
+## 📂 Folder Structure
 ```text
-cp-analytics/
-├── backend/              # Node.js + Express API server
-│   ├── controllers/      # API logic (Clist & Kenkoooo integration)
-│   ├── routes/           # Express routes
-│   ├── server.js         # Entry point
-│   └── .env              # Backend environment variables
-└── frontend/             # React application (Vite)
-    ├── src/
-    │   ├── components/   # Reusable UI widgets
-    │   ├── compare/      # Compare page layouts & logics
-    │   ├── services/     # Third-party API client utilities
-    │   └── App.jsx       # Main layout & routes
-    └── .env              # Env variables
+cp-tracker/
+├── backend/            # Express.js API server
+│   ├── controllers/    # API handlers & integration logic
+│   ├── routes/         # API endpoint definitions
+│   └── server.js       # App entry point
+├── frontend/           # React SPA
+│   ├── src/
+│   │   ├── components/ # Reusable UI widgets
+│   │   ├── services/   # API client utilities
+│   │   └── App.jsx     # Routing & Main Layout
+└── ...
