@@ -13,6 +13,13 @@ Competitive programmers often struggle to maintain a holistic view of their prog
 
 ---
 
+## 🎥 Project Demo
+*(Recruiters prefer video demos over screenshots. Click the image below to watch the walkthrough)*
+
+[![Watch the demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+
+---
+
 ## ⚡ Features
 
 ### 📊 Dashboard & Analytics
@@ -30,14 +37,6 @@ Competitive programmers often struggle to maintain a holistic view of their prog
 *   **Responsive Dark Theme:** A premium, eye-friendly layout optimized for long study sessions.
 *   **Secure Auth:** Robust account management with session persistence powered by Supabase.
 *   **Optimized Performance:** Seamless UX with skeleton loaders and micro-animations.
-
----
-
-## 🖼 Screenshots
-*(Add your project GIFs or screenshots here to grab recruiter attention)*
-| Dashboard Overview | Comparison View |
-| :---: | :---: |
-| 🚧 [Insert GIF/Image] | 🚧 [Insert GIF/Image] |
 
 ---
 
