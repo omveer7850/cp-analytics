@@ -1,12 +1,3 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
-const PROXY = `${API_BASE}/api`;
-
-async function apiGet(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
-}
-
 export function getRankInfo(rating) {
   if (rating >= 2800) return { rank: 'Red',     color: '#FF0000' };
   if (rating >= 2400) return { rank: 'Orange',  color: '#FF8000' };
@@ -21,23 +12,84 @@ export function getRankInfo(rating) {
 
 export async function fetchAtCoderProfile(username) {
   try {
-    const data = await apiGet(`${PROXY}/atcoder/profile/${username}`);
+    const res = await fetch(`https://corsproxy.io/?https://atcoder.jp/users/${username}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const html = await res.text();
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    const container = doc.querySelector("#main-container .row");
+    if (!container) {
+      throw new Error("User not found");
+    }
+
+    const userNameElement = container.querySelector(".col-md-3.col-sm-12 h3 .username span");
+    const userName = userNameElement ? userNameElement.textContent.trim() : username;
+
+    const currentRank = container.querySelector(".col-md-3.col-sm-12 h3 b")?.textContent.trim() || 'N/A';
+    const userAvatar = container.querySelector(".col-md-3.col-sm-12 .avatar")?.getAttribute("src")?.trim() || "";
+
+    let userRank = 0;
+    let userRating = 0;
+    let userMaxRating = 0;
+    let userContestCount = 0;
+    let userLastCompeted = 'N/A';
+
+    container.querySelectorAll(".col-md-9.col-sm-12 .dl-table tbody tr").forEach((tr) => {
+      const th = tr.querySelector("th")?.textContent.trim() || "";
+      const td = tr.querySelector("td")?.textContent.trim() || "";
+
+      if (th.includes("Rank")) {
+        userRank = Number(td.replace(/[^\d]/g, "")) || 0;
+      } else if (th.includes("Rating")) {
+        userRating = Number(tr.querySelector("td span")?.textContent.trim()) || 0;
+      } else if (th.includes("Highest Rating")) {
+        userMaxRating = Number(tr.querySelector("td span")?.textContent.trim()) || 0;
+      } else if (th.includes("Rated Matches")) {
+        userContestCount = Number(td) || 0;
+      } else if (th.includes("Last Competed")) {
+        userLastCompeted = td;
+      }
+    });
+
+    let userContests = [];
+    try {
+      const historyRes = await fetch(`https://corsproxy.io/?https://atcoder.jp/users/${username}/history/json`);
+      if (historyRes.ok) {
+        userContests = await historyRes.json();
+      }
+    } catch (e) {
+      userContests = [];
+    }
+
     return {
-      username:        data.userName         ?? username,
+      username:        userName,
       country:         null,
       affiliation:     null,
-      avatar:          data.userAvatar       ?? null,
-      rating:          data.userRating       ?? 0,
-      highestRating:   data.userMaxRating    ?? 0,
-      rank:            data.currentRank      ?? 'N/A',
-      activeRank:      data.currentRank      ?? 'N/A',
+      avatar:          userAvatar,
+      rating:          userRating,
+      highestRating:   userMaxRating,
+      rank:            currentRank,
+      activeRank:      currentRank,
       wins:            0,
-      ratedMatches:    data.userContestCount ?? 0,
+      ratedMatches:    userContestCount,
       joinedDate:      null,
-      lastCompeted:    data.userLastCompeted ?? null,
+      lastCompeted:    userLastCompeted,
       profileUrl:      `https://atcoder.jp/users/${username}`,
-      rankInfo:        getRankInfo(data.userRating    ?? 0),
-      highestRankInfo: getRankInfo(data.userMaxRating ?? 0),
+      rankInfo:        getRankInfo(userRating),
+      highestRankInfo: getRankInfo(userMaxRating),
+      userContests:    userContests.map((item) => ({
+        userRank: item.Place,
+        userOldRating: item.OldRating,
+        userNewRating: item.NewRating,
+        userRatingChange: item.NewRating - item.OldRating,
+        contestName: item.ContestName,
+        userPerformance: item.Performance,
+        contestEndTime: item.EndTime,
+        isRated: item.IsRated,
+        contestId: item.ContestScreenName
+      }))
     };
   } catch (e) {
     console.error('ATCODER PROFILE ERROR:', e);
@@ -47,27 +99,27 @@ export async function fetchAtCoderProfile(username) {
 
 export async function fetchAtCoderHistory(username) {
   try {
-    const data     = await apiGet(`${PROXY}/atcoder/profile/${username}`);
-    const contests = data.userContests ?? [];
+    const historyRes = await fetch(`https://corsproxy.io/?https://atcoder.jp/users/${username}/history/json`);
+    if (!historyRes.ok) throw new Error(`HTTP ${historyRes.status}`);
+    const contests = await historyRes.json();
 
     return contests
       .map((c) => ({
-        contestSlug:  c.contestId        ?? '',
-        contestName:  c.contestName      ?? 'N/A',
-        contestType:  c.isRated ? 'Rated' : 'Unrated',
-        rank:         c.userRank         ?? 'N/A',
-        performance:  c.userPerformance  ?? 0,
-        oldRating:    c.userOldRating    ?? 0,
-        newRating:    c.userNewRating    ?? 0,
-        change:       c.userRatingChange ?? 0,
-        date:         c.contestEndTime
-          ? c.contestEndTime.split('T')[0]
+        contestSlug:  c.ContestScreenName        ?? '',
+        contestName:  c.ContestName      ?? 'N/A',
+        contestType:  c.IsRated ? 'Rated' : 'Unrated',
+        rank:         c.Place         ?? 'N/A',
+        performance:  c.Performance  ?? 0,
+        oldRating:    c.OldRating    ?? 0,
+        newRating:    c.NewRating    ?? 0,
+        change:       c.NewRating - c.OldRating,
+        date:         c.EndTime
+          ? c.EndTime.split('T')[0]
           : 'N/A',
         url: `https://atcoder.jp/contests/${
-          (c.contestId ?? '').replace('.contest.atcoder.jp', '')
+          (c.ContestScreenName ?? '').replace('.contest.atcoder.jp', '')
         }`,
-      }))
-     // .reverse();
+      }));
   } catch (e) {
     console.error('ATCODER HISTORY ERROR:', e);
     return [];
@@ -76,27 +128,28 @@ export async function fetchAtCoderHistory(username) {
 
 export async function fetchAtCoderSubmissions(username) {
   try {
-    const data = await apiGet(`${PROXY}/atcoder/submissions/${username}`);
-    const list = Array.isArray(data) ? data : [];
+    const res = await fetch(`https://kenkoooo.com/atcoder/atcoder-api/v3/user/submissions?user=${username}&from_second=0`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const list = await res.json();
 
     const stats = {};
     list.forEach((s) => {
-      const r = s.result ?? s.Result ?? 'Other';
+      const r = s.result ?? 'Other';
       stats[r] = (stats[r] ?? 0) + 1;
     });
 
     const recent = list
-      .filter((s) => (s.result ?? s.Result) === 'AC')
+      .filter((s) => s.result === 'AC')
       .slice(0, 10)
       .map((s) => ({
         id:        s.id             ?? Math.random(),
-        problemId: s.problem_id     ?? s.ProblemID     ?? 'N/A',
-        contest:   s.contest_id     ?? s.ContestID     ?? 'N/A',
-        result:    s.result         ?? s.Result        ?? 'N/A',
-        language:  s.language       ?? s.Language      ?? 'N/A',
-        score:     s.score          ?? s.Score         ?? 0,
-        time:      s.execution_time ?? s.ExecutionTime ?? 'N/A',
-        memory:    s.memory         ?? s.Memory        ?? 'N/A',
+        problemId: s.problem_id     ?? 'N/A',
+        contest:   s.contest_id     ?? 'N/A',
+        result:    s.result         ?? 'N/A',
+        language:  s.language       ?? 'N/A',
+        score:     s.score          ?? 0,
+        time:      s.execution_time ?? 'N/A',
+        memory:    s.memory         ?? 'N/A',
       }));
 
     return { stats, recent };
