@@ -29,7 +29,6 @@ function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const isAuthPage = pathname === '/login';
 
- 
   if (isAuthPage) {
     return (
       <Routes>
@@ -40,10 +39,13 @@ function AppLayout() {
 
   return (
     <>
-      <Navbar />
+      <Navbar toggleSidebar={() => setSidebarOpen((prev) => !prev)} />
       <div className="layout">
         <Sidebar isOpen={sidebarOpen} />
-        <main className="main-content">
+        {sidebarOpen && (
+          <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />
+        )}
+        <main className="main-content" onClick={() => setSidebarOpen(false)}>
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
 

@@ -153,3 +153,26 @@ body {
   color: var(--ink);
   transition: background 0.2s ease, color 0.2s ease;
 }
+
+/* Mobile Menu Button */
+.navbar__menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: background 0.15s, color 0.15s;
+}
+
+.navbar__menu-btn:hover {
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .navbar__menu-btn {
+    display: flex;
+  }
+}
