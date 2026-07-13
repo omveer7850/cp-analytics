@@ -12,7 +12,7 @@ import LeetCodePage from './pages/Platform/LeetCodePage';
 import CodeforcesPage from './pages/Platform/CodeforcesPage';
 import ContestCalendarPage from './pages/ContestCalendar/ContestCalendarPage';
 import ProfilePage from './pages/Profile/ProfilePage';
-import SettingsPage from './pages/Settings/SettingsPage';
+import SettingsPage from './pages/Settings/Settingspage';
 import LoginPage from './pages/Login/LoginPage';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';

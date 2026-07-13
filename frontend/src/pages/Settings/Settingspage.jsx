@@ -12,7 +12,7 @@ import { fetchCFUser } from '../../services/codeforces';
 import { fetchGithubProfile } from '../../services/github';
 import { fetchAllCodechefData } from '../../services/codechef';
 import { fetchAtCoderProfile } from '../../services/atcoder';
-import './SettingsPage.css';
+import './Settingspage.css';
 
 async function fetchLeetCodeCombined(username) {
   const [profile, solved] = await Promise.all([

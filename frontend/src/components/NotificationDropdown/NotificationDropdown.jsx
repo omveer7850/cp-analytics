@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchAllContests } from '../../services/contests';
-import { NOTIF_LEAD_KEY, NOTIF_ENABLED_KEY } from '../../pages/Settings/SettingsPage';
+import { NOTIF_LEAD_KEY, NOTIF_ENABLED_KEY } from '../../pages/Settings/Settingspage';
 import './NotificationDropdown.css';
 
 const MAX_SHOWN = 4;
