@@ -4,7 +4,7 @@ import { SiLeetcode, SiCodeforces, SiGithub, SiCodechef } from 'react-icons/si';
 import './Dashboard.css';
 import './dashboard-additions.css';
 import DifficultyRingCard from '../../components/DifficultyRingCard';
-import { getAllSheetsProgress, getOverallProgress, getDifficultyStats } from '../../utils/dsaProgress';
+import { getAllSheetsProgress, getOverallProgress, getDifficultyStats } from '../../utils/DsaProgress';
 import { useAuth } from '../../context/AuthContext';
 import { getPlatforms } from '../../services/supabaseService';
 

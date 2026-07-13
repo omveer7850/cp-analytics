@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SHEET_LIST, getDifficultyStats } from '../utils/dsaProgress';
+import { SHEET_LIST, getDifficultyStats } from '../utils/DsaProgress';
 import { useAuth } from '../context/AuthContext';
 
 const DIFFICULTY_META = [
