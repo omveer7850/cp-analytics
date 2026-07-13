@@ -174,10 +174,16 @@
 }
 
 .cp-shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, var(--bg) 25%, var(--border) 50%, var(--bg) 75%);
   background-size: 200% 100%;
   animation: cp-shimmer 1.4s infinite;
   border-radius: 6px;
+}
+
+[data-theme="dark"] .cp-remove-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
 }
 
 .cp-shimmer--circle { width: 48px; height: 48px; border-radius: 50%; }
