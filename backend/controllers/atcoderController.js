@@ -1,6 +1,9 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
+const cache = new Map();
+const CACHE_TTL_MS = 5 * 60 * 1000;
+
 const PROXIES = [
   'https://api.allorigins.win/raw?url=',
   'https://api.codetabs.com/v1/proxy?quest='
@@ -24,9 +27,17 @@ async function fetchWithProxy(targetUrl) {
 }
 
 exports.getProfile = async (req, res) => {
-  try {
-    const { username } = req.params;
+  const { username } = req.params;
+  const now = Date.now();
 
+  if (cache.has(username)) {
+    const cached = cache.get(username);
+    if (now - cached.timestamp < CACHE_TTL_MS) {
+      return res.json(cached.data);
+    }
+  }
+
+  try {
     const html = await fetchWithProxy(`https://atcoder.jp/users/${username}`);
     const $ = cheerio.load(html);
 
@@ -83,7 +94,7 @@ exports.getProfile = async (req, res) => {
       userContests = [];
     }
 
-    res.json({
+    const result = {
       userName,
       currentRank,
       userAvatar,
@@ -93,7 +104,14 @@ exports.getProfile = async (req, res) => {
       userLastCompeted,
       userContestCount,
       userContests,
+    };
+
+    cache.set(username, {
+      timestamp: now,
+      data: result,
     });
+
+    res.json(result);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ error: err.message });
