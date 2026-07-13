@@ -56,35 +56,13 @@ export default function LeetCodePage() {
     setError('');
     setData(null);
     try {
-      const profile = await fetchLeetCodeProfile(uname);
-      const solved = await fetchLeetCodeSolved(uname).catch(() => ({
-        totalSolved: 0,
-        totalQuestions: 3400,
-        easySolved: 0,
-        easyTotal: 850,
-        mediumSolved: 0,
-        mediumTotal: 1800,
-        hardSolved: 0,
-        hardTotal: 750,
-        acceptanceRate: '0%',
-        submissionsTotal: 0,
-        activeDays: 0,
-      }));
-      const contest = await fetchLeetCodeContestHistory(uname).catch(() => ({
-        rating: 'N/A',
-        globalRank: 'N/A',
-        topPercentage: 'N/A',
-        totalContests: 0,
-        history: [],
-      }));
-      const calendar = await fetchLeetCodeCalendar(uname).catch(() => ({
-        submissions: {},
-        currentStreak: 0,
-        longestStreak: 0,
-        totalSubmissions: 0,
-        activeDays: 0,
-      }));
-      const recent = await fetchRecentSubmissions(uname).catch(() => []);
+      const [profile, solved, contest, calendar, recent] = await runStaggered([
+        () => fetchLeetCodeProfile(uname),
+        () => fetchLeetCodeSolved(uname),
+        () => fetchLeetCodeContestHistory(uname),
+        () => fetchLeetCodeCalendar(uname),
+        () => fetchRecentSubmissions(uname),
+      ], SUB_CALL_STAGGER_MS);
 
       setData({ profile, solved, contest, calendar, recent });
       if (user) localStorage.setItem(lsKeyFor(user.id), uname);
