@@ -1,0 +1,174 @@
+.ccp-page {
+  width: 100%;
+  padding: 24px 28px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ccp-search-wrap {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.ccp-search-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ccp-search-icon { color: var(--text-muted); flex-shrink: 0; }
+
+.ccp-search-input {
+  flex: 1;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.ccp-search-input:focus    { border-color: var(--accent); }
+.ccp-search-input:disabled { opacity: 0.6; }
+
+.ccp-search-btn {
+  height: 38px;
+  padding: 0 20px;
+  background: #5b4638;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.ccp-search-btn:hover    { opacity: 0.85; }
+.ccp-search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.ccp-search-err { font-size: 12px; color: #ef4444; margin: 8px 0 0; }
+
+.ccp-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ccp-page-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.3px;
+}
+
+.ccp-title-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #5b4638;
+  flex-shrink: 0;
+}
+
+.ccp-page-sub   { font-size: 12px; color: var(--text-secondary); margin: 0; }
+.ccp-page-sub b { color: var(--text-primary); }
+
+.ccp-refresh-btn {
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-white);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+.ccp-refresh-btn:hover { background: var(--bg); color: var(--text-primary); }
+
+.ccp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 60px 20px;
+  text-align: center;
+}
+.ccp-empty-icon  { font-size: 40px; }
+.ccp-empty-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin: 0; }
+.ccp-empty-sub   { font-size: 12px; color: var(--text-muted); margin: 0; }
+
+.ccp-error-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 60px 20px;
+  text-align: center;
+}
+.ccp-error-icon  { font-size: 36px; }
+.ccp-error-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin: 0; }
+.ccp-error-msg   { font-size: 13px; color: #ef4444; margin: 0; }
+
+.ccp-retry-btn {
+  margin-top: 8px;
+  padding: 8px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-white);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  font-family: var(--font);
+  transition: background 0.15s;
+}
+.ccp-retry-btn:hover { background: var(--bg); }
+
+.ccp-skeleton { display: flex; flex-direction: column; gap: 14px; }
+
+.ccp-skel-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ccp-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: ccp-shimmer 1.4s infinite;
+  border-radius: 6px;
+}
+
+.ccp-shimmer--line    { height: 14px; width: 100%; }
+.ccp-shimmer--short   { width: 70%; }
+.ccp-shimmer--shorter { width: 40%; }
+
+@keyframes ccp-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (max-width: 768px) {
+  .ccp-page { padding: 16px; }
+}

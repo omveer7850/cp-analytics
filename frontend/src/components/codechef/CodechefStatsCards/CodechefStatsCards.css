@@ -1,0 +1,51 @@
+.ccsc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.ccsc-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.ccsc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-color, #5b4638);
+  border-radius: 12px 12px 0 0;
+}
+
+.ccsc-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.ccsc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.ccsc-val {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.ccsc-lbl {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}

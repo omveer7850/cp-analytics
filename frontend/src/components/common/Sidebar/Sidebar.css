@@ -1,0 +1,50 @@
+.sidebar { position: fixed; top: var(--navbar-height); left: 0; bottom: 0; width: var(--sidebar-width); background: var(--bg-white); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; z-index: 90; }
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.sidebar__section { padding: 14px 10px 4px; }
+.sidebar__section-label { display: block; padding: 0 6px; margin-bottom: 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-muted); }
+.sidebar__list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+
+.sidebar__item { display: flex; align-items: center; gap: 12px; padding: 6px 8px; border-radius: var(--radius-sm); transition: background 0.12s ease; cursor: pointer; }
+.sidebar__item:hover { background: var(--bg); }
+.sidebar__item.active { background: var(--accent-light); }
+.sidebar__item.active .sidebar__item-name { color: var(--accent); }
+
+/* Standardized Icon Wrapper */
+.sidebar__icon { 
+  width: 24px; 
+  height: 24px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  flex-shrink: 0; 
+}
+
+/* Force icons to match size and color */
+.platform-icon {
+  width: 20px !important;
+  height: 20px !important;
+  display: block;
+}
+
+/* Brand Colors */
+.leetcode { color: #FFA116; }
+.codeforces { color: #1F8ACB; }
+.github { color: var(--text-primary); }
+.codechef { color: #5B4638; }
+.atcoder { color: #000000; }
+
+/* When item is active, allow icon to inherit the active text color */
+.sidebar__item.active .platform-icon {
+  color: inherit !important;
+}
+
+.sidebar__item-text { display: flex; flex-direction: column; min-width: 0; }
+.sidebar__item-name { font-size: 12px; font-weight: 500; color: var(--text-primary); line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sidebar__item-sub { font-size: 10px; color: var(--text-muted); line-height: 1.2; }
+
+.sidebar__divider { height: 1px; background: var(--border); margin: 6px 10px; }
+.sidebar__footer { margin-top: auto; padding: 8px 10px; border-top: 1px solid var(--border); }
+.sidebar__settings { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; color: var(--text-secondary); transition: background 0.12s; }
+.sidebar__settings:hover { background: var(--bg); }

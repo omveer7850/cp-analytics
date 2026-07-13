@@ -1,0 +1,183 @@
+.ghp-page {
+  width: 100%;
+  padding: 24px 28px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Search */
+.ghp-search-wrap {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.ghp-search-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ghp-search-icon { color: var(--text-muted); flex-shrink: 0; }
+
+.ghp-search-input {
+  flex: 1;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-family: var(--font);
+  color: var(--text-primary);
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.ghp-search-input:focus { border-color: var(--accent); }
+.ghp-search-input:disabled { opacity: 0.6; }
+
+.ghp-search-btn {
+  height: 38px;
+  padding: 0 20px;
+  background: #24292e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.ghp-search-btn:hover    { opacity: 0.85; }
+.ghp-search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.ghp-search-err { font-size: 12px; color: #ef4444; margin: 8px 0 0; }
+
+
+.ghp-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ghp-page-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.3px;
+}
+
+.ghp-title-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #24292e;
+  flex-shrink: 0;
+}
+
+.ghp-page-sub   { font-size: 12px; color: var(--text-secondary); margin: 0; }
+.ghp-page-sub b { color: var(--text-primary); }
+
+.ghp-refresh-btn {
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-white);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+.ghp-refresh-btn:hover { background: var(--bg); color: var(--text-primary); }
+
+
+.ghp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 60px 20px;
+  text-align: center;
+}
+.ghp-empty-icon  { font-size: 40px; }
+.ghp-empty-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin: 0; }
+.ghp-empty-sub   { font-size: 12px; color: var(--text-muted); margin: 0; }
+
+
+.ghp-error-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 60px 20px;
+  text-align: center;
+}
+.ghp-error-icon  { font-size: 36px; }
+.ghp-error-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin: 0; }
+.ghp-error-msg   { font-size: 13px; color: #ef4444; margin: 0; }
+
+.ghp-retry-btn {
+  margin-top: 8px;
+  padding: 8px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-white);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  font-family: var(--font);
+  transition: background 0.15s;
+}
+.ghp-retry-btn:hover { background: var(--bg); }
+
+
+.ghp-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ghp-skel-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ghp-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: ghp-shimmer 1.4s infinite;
+  border-radius: 6px;
+}
+
+.ghp-shimmer--line    { height: 14px; width: 100%; }
+.ghp-shimmer--short   { width: 70%; }
+.ghp-shimmer--shorter { width: 40%; }
+
+@keyframes ghp-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (max-width: 768px) {
+  .ghp-page { padding: 16px; }
+}

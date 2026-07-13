@@ -1,0 +1,88 @@
+.ah-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.ah-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.ah-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--text-muted);
+}
+
+.ah-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ah-stat {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.ah-stat b {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.ah-sep { color: var(--text-muted); }
+
+.ah-grid-wrap {
+  overflow-x: auto;
+}
+
+.ah-grid {
+  display: flex;
+  gap: 3px;
+  min-width: 600px;
+}
+
+.ah-week {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ah-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.ah-cell:hover { opacity: 0.75; }
+
+.ah-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+  justify-content: flex-end;
+}
+
+.ah-leg-lbl {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.ah-leg-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
