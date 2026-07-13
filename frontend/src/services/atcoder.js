@@ -10,7 +10,7 @@ export function getRankInfo(rating) {
   return               { rank: 'Unrated', color: '#808080' };
 }
 
-async function fetchWithTimeout(url, options = {}, timeout = 15000) {
+async function fetchWithTimeout(url, options = {}, timeout = 10000) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
   try {
@@ -27,20 +27,22 @@ async function fetchWithProxy(targetUrl) {
   let lastError;
 
   try {
-    const res = await fetchWithTimeout(`https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, {}, 15000);
+    const res = await fetchWithTimeout(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`, {}, 10000);
     if (res.ok) {
       const data = await res.json();
-      if (data.contents) return data.contents;
+      return data;
     }
   } catch (err) {
     lastError = err;
   }
 
   try {
-    const res = await fetchWithTimeout(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`, {}, 15000);
+    const res = await fetchWithTimeout(`https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, {}, 10000);
     if (res.ok) {
-      const text = await res.text();
-      if (text) return text;
+      const wrapper = await res.json();
+      if (wrapper.contents) {
+        return JSON.parse(wrapper.contents);
+      }
     }
   } catch (err) {
     lastError = err;
@@ -51,70 +53,47 @@ async function fetchWithProxy(targetUrl) {
 
 export async function fetchAtCoderProfile(username) {
   try {
-    const html = await fetchWithProxy(`https://atcoder.jp/users/${username}`);
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
+    const contests = await fetchWithProxy(`https://atcoder.jp/users/${username}/history/json`);
+    const history = contests || [];
 
-    const container = doc.querySelector("#main-container .row");
-    if (!container) {
-      throw new Error("User not found");
-    }
+    let rating = 0;
+    let maxRating = 0;
+    let lastCompeted = 'N/A';
+    let ratedMatches = 0;
 
-    const userNameElement = container.querySelector(".col-md-3.col-sm-12 h3 .username span");
-    const userName = userNameElement ? userNameElement.textContent.trim() : username;
+    if (history.length > 0) {
+      const ratedContests = history.filter((c) => c.IsRated);
+      ratedMatches = ratedContests.length;
 
-    const currentRank = container.querySelector(".col-md-3.col-sm-12 h3 b")?.textContent.trim() || 'N/A';
-    const userAvatar = container.querySelector(".col-md-3.col-sm-12 .avatar")?.getAttribute("src")?.trim() || "";
+      const lastContest = history[history.length - 1];
+      rating = lastContest.NewRating || 0;
+      lastCompeted = lastContest.EndTime ? lastContest.EndTime.split('T')[0] : 'N/A';
 
-    let userRank = 0;
-    let userRating = 0;
-    let userMaxRating = 0;
-    let userContestCount = 0;
-    let userLastCompeted = 'N/A';
-
-    container.querySelectorAll(".col-md-9.col-sm-12 .dl-table tbody tr").forEach((tr) => {
-      const th = tr.querySelector("th")?.textContent.trim() || "";
-      const td = tr.querySelector("td")?.textContent.trim() || "";
-
-      if (th.includes("Rank")) {
-        userRank = Number(td.replace(/[^\d]/g, "")) || 0;
-      } else if (th.includes("Rating")) {
-        userRating = Number(tr.querySelector("td span")?.textContent.trim()) || 0;
-      } else if (th.includes("Highest Rating")) {
-        userMaxRating = Number(tr.querySelector("td span")?.textContent.trim()) || 0;
-      } else if (th.includes("Rated Matches")) {
-        userContestCount = Number(td) || 0;
-      } else if (th.includes("Last Competed")) {
-        userLastCompeted = td;
+      const ratings = history.map((c) => c.NewRating).filter((r) => typeof r === 'number');
+      if (ratings.length > 0) {
+        maxRating = Math.max(...ratings);
       }
-    });
-
-    let userContests = [];
-    try {
-      const historyData = await fetchWithProxy(`https://atcoder.jp/users/${username}/history/json`);
-      const parsedData = typeof historyData === 'string' ? JSON.parse(historyData) : historyData;
-      userContests = parsedData || [];
-    } catch (e) {
-      userContests = [];
     }
+
+    const rankInfo = getRankInfo(rating);
 
     return {
-      username:        userName,
+      username,
       country:         null,
       affiliation:     null,
-      avatar:          userAvatar,
-      rating:          userRating,
-      highestRating:   userMaxRating,
-      rank:            currentRank,
-      activeRank:      currentRank,
+      avatar:          `https://api.dicebear.com/7.x/identicon/svg?seed=${username}`,
+      rating,
+      highestRating:   maxRating,
+      rank:            rankInfo.rank,
+      activeRank:      rankInfo.rank,
       wins:            0,
-      ratedMatches:    userContestCount,
+      ratedMatches,
       joinedDate:      null,
-      lastCompeted:    userLastCompeted,
+      lastCompeted,
       profileUrl:      `https://atcoder.jp/users/${username}`,
-      rankInfo:        getRankInfo(userRating),
-      highestRankInfo: getRankInfo(userMaxRating),
-      userContests:    userContests.map((item) => ({
+      rankInfo:        rankInfo,
+      highestRankInfo: getRankInfo(maxRating),
+      userContests:    history.map((item) => ({
         userRank: item.Place,
         userOldRating: item.OldRating,
         userNewRating: item.NewRating,
@@ -134,10 +113,10 @@ export async function fetchAtCoderProfile(username) {
 
 export async function fetchAtCoderHistory(username) {
   try {
-    const historyData = await fetchWithProxy(`https://atcoder.jp/users/${username}/history/json`);
-    const contests = typeof historyData === 'string' ? JSON.parse(historyData) : historyData;
+    const contests = await fetchWithProxy(`https://atcoder.jp/users/${username}/history/json`);
+    const history = contests || [];
 
-    return (contests || [])
+    return history
       .map((c) => ({
         contestSlug:  c.ContestScreenName        ?? '',
         contestName:  c.ContestName      ?? 'N/A',
