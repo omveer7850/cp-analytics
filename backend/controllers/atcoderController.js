@@ -1,29 +1,47 @@
 const axios = require('axios');
 
+async function getClistAccount(username, clistUser, clistKey) {
+  const candidates = [
+    username,
+    username.charAt(0).toUpperCase() + username.slice(1).toLowerCase(),
+    username.toLowerCase(),
+    username.toUpperCase()
+  ];
+  const uniqueCandidates = [...new Set(candidates)];
+
+  for (const cand of uniqueCandidates) {
+    try {
+      const res = await axios.get(`https://clist.by/api/v4/account/`, {
+        params: {
+          username: clistUser,
+          api_key: clistKey,
+          resource: 'atcoder.jp',
+          handle: cand
+        },
+        timeout: 8000
+      });
+      const objects = res.data?.objects || [];
+      if (objects.length > 0) {
+        return objects[0];
+      }
+    } catch (e) {
+    }
+  }
+  return null;
+}
+
 exports.getProfile = async (req, res) => {
   try {
     const { username } = req.params;
     const clistUser = process.env.CLIST_USERNAME || 'omveer_01';
     const clistKey = process.env.CLIST_API_KEY || '9942249332432efd464da19d58a0ae52eede4d1d';
 
-    const accountRes = await axios.get(`https://clist.by/api/v4/account/`, {
-      params: {
-        username: clistUser,
-        api_key: clistKey,
-        resource: 'atcoder.jp',
-        handle: username
-      },
-      timeout: 10000
-    });
-
-    const accounts = accountRes.data?.objects || [];
-    if (accounts.length === 0) {
+    const account = await getClistAccount(username, clistUser, clistKey);
+    if (!account) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const account = accounts[0];
     const accountId = account.id;
-
     const statsRes = await axios.get(`https://clist.by/api/v4/statistics/`, {
       params: {
         username: clistUser,
@@ -47,7 +65,7 @@ exports.getProfile = async (req, res) => {
         userNewRating: item.new_rating || 0,
         userRatingChange: (item.new_rating && item.old_rating) ? (item.new_rating - item.old_rating) : 0,
         contestName: item.event || 'N/A',
-        userPerformance: item.problems ? 0 : 0,
+        userPerformance: 0,
         contestEndTime: item.date,
         isRated: !!item.new_rating,
         contestId: String(item.contest_id)
@@ -57,7 +75,7 @@ exports.getProfile = async (req, res) => {
     res.json({
       userName: account.name || username,
       currentRank: account.resource_rank ? String(account.resource_rank) : "Unrated",
-      userAvatar: `https://api.dicebear.com/7.x/identicon/svg?seed=${username}`,
+      userAvatar: `https://api.dicebear.com/7.x/identicon/svg?seed=${account.name || username}`,
       userRank: account.resource_rank || 0,
       userRating: account.rating || 0,
       userMaxRating: maxRating,
@@ -77,18 +95,8 @@ exports.getHistory = async (req, res) => {
     const clistUser = process.env.CLIST_USERNAME || 'omveer_01';
     const clistKey = process.env.CLIST_API_KEY || '9942249332432efd464da19d58a0ae52eede4d1d';
 
-    const accountRes = await axios.get(`https://clist.by/api/v4/account/`, {
-      params: {
-        username: clistUser,
-        api_key: clistKey,
-        resource: 'atcoder.jp',
-        handle: username
-      },
-      timeout: 10000
-    });
-
-    const accounts = accountRes.data?.objects || [];
-    if (accounts.length === 0) {
+    const account = await getClistAccount(username, clistUser, clistKey);
+    if (!account) {
       return res.json([]);
     }
 
@@ -96,7 +104,7 @@ exports.getHistory = async (req, res) => {
       params: {
         username: clistUser,
         api_key: clistKey,
-        account_id: accounts[0].id
+        account_id: account.id
       },
       timeout: 10000
     });
