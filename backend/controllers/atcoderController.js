@@ -52,6 +52,8 @@ exports.getProfile = async (req, res) => {
     });
 
     const stats = statsRes.data?.objects || [];
+    stats.sort((a, b) => new Date(a.date) - new Date(b.date));
+
     let maxRating = account.rating || 0;
     const userContests = [];
 
@@ -110,6 +112,8 @@ exports.getHistory = async (req, res) => {
     });
 
     const stats = statsRes.data?.objects || [];
+    stats.sort((a, b) => new Date(a.date) - new Date(b.date));
+
     const contests = stats
       .filter((item) => item.new_rating)
       .map((item) => ({
