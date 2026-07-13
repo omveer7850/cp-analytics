@@ -10,7 +10,8 @@ const fallbackContests = [
   { id: 'ac-fallback-1', platform: 'AtCoder', title: 'AtCoder Beginner Contest', startTime: hoursFromNow(24), duration: 100, url: 'https://atcoder.jp/contests' },
 ];
 
-const PROXY = 'http://localhost:5001/api/contests';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const PROXY = `${API_BASE}/api/contests`;
 
 function withEndTime(contests) {
   return contests

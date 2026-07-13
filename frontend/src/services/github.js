@@ -1,4 +1,9 @@
-const BASE = 'http://localhost:5001/api/github';
+// Points at your Express backend's GitHub proxy. Locally this reads
+// VITE_API_URL=http://localhost:5001 from frontend/.env; in
+// production (Vercel) it's set to your deployed Render URL instead —
+// no code change needed between environments.
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const BASE = `${API_BASE}/api/github`;
 
 async function apiGet(url) {
   const res = await fetch(url);
