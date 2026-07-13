@@ -1,21 +1,33 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const headers = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-  'Accept-Language': 'en-US,en;q=0.9',
-};
+const PROXIES = [
+  'https://api.allorigins.win/raw?url=',
+  'https://api.codetabs.com/v1/proxy?quest='
+];
+
+async function fetchWithProxy(targetUrl) {
+  let lastError;
+  for (const proxy of PROXIES) {
+    try {
+      const response = await axios.get(`${proxy}${encodeURIComponent(targetUrl)}`, {
+        timeout: 8000,
+      });
+      if (response.data) {
+        return response.data;
+      }
+    } catch (err) {
+      lastError = err;
+    }
+  }
+  throw lastError || new Error("All proxies failed");
+}
 
 exports.getProfile = async (req, res) => {
   try {
     const { username } = req.params;
 
-    const profileResponse = await axios.get(`https://atcoder.jp/users/${username}`, {
-      headers,
-      timeout: 10000,
-    });
-    const html = profileResponse.data;
+    const html = await fetchWithProxy(`https://atcoder.jp/users/${username}`);
     const $ = cheerio.load(html);
 
     const container = $("#main-container .row").first();
@@ -54,12 +66,9 @@ exports.getProfile = async (req, res) => {
 
     let userContests = [];
     try {
-      const historyResponse = await axios.get(`https://atcoder.jp/users/${username}/history/json`, {
-        headers,
-        timeout: 10000,
-      });
-      const historyData = historyResponse.data || [];
-      userContests = historyData.map((item) => ({
+      const historyData = await fetchWithProxy(`https://atcoder.jp/users/${username}/history/json`);
+      const parsedData = typeof historyData === 'string' ? JSON.parse(historyData) : historyData;
+      userContests = (parsedData || []).map((item) => ({
         userRank: item.Place,
         userOldRating: item.OldRating,
         userNewRating: item.NewRating,
@@ -95,12 +104,9 @@ exports.getHistory = async (req, res) => {
   try {
     const { username } = req.params;
 
-    const historyResponse = await axios.get(`https://atcoder.jp/users/${username}/history/json`, {
-      headers,
-      timeout: 10000,
-    });
-    const historyData = historyResponse.data || [];
-    const contests = historyData.map((item) => ({
+    const historyData = await fetchWithProxy(`https://atcoder.jp/users/${username}/history/json`);
+    const parsedData = typeof historyData === 'string' ? JSON.parse(historyData) : historyData;
+    const contests = (parsedData || []).map((item) => ({
       userRank: item.Place,
       userOldRating: item.OldRating,
       userNewRating: item.NewRating,
@@ -126,7 +132,7 @@ exports.getSubmissions = async (req, res) => {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
       },
-      timeout: 10000,
+      timeout: 15000,
     });
 
     const list = response.data || [];
