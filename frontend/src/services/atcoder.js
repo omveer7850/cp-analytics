@@ -10,12 +10,35 @@ export function getRankInfo(rating) {
   return               { rank: 'Unrated', color: '#808080' };
 }
 
+async function fetchWithProxy(targetUrl) {
+  let lastError;
+
+  try {
+    const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.contents) return data.contents;
+    }
+  } catch (err) {
+    lastError = err;
+  }
+
+  try {
+    const res = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`);
+    if (res.ok) {
+      const text = await res.text();
+      if (text) return text;
+    }
+  } catch (err) {
+    lastError = err;
+  }
+
+  throw lastError || new Error("All proxies failed");
+}
+
 export async function fetchAtCoderProfile(username) {
   try {
-    const res = await fetch(`https://corsproxy.io/?https://atcoder.jp/users/${username}`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const html = await res.text();
-
+    const html = await fetchWithProxy(`https://atcoder.jp/users/${username}`);
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
 
@@ -55,10 +78,9 @@ export async function fetchAtCoderProfile(username) {
 
     let userContests = [];
     try {
-      const historyRes = await fetch(`https://corsproxy.io/?https://atcoder.jp/users/${username}/history/json`);
-      if (historyRes.ok) {
-        userContests = await historyRes.json();
-      }
+      const historyData = await fetchWithProxy(`https://atcoder.jp/users/${username}/history/json`);
+      const parsedData = typeof historyData === 'string' ? JSON.parse(historyData) : historyData;
+      userContests = parsedData || [];
     } catch (e) {
       userContests = [];
     }
@@ -99,11 +121,10 @@ export async function fetchAtCoderProfile(username) {
 
 export async function fetchAtCoderHistory(username) {
   try {
-    const historyRes = await fetch(`https://corsproxy.io/?https://atcoder.jp/users/${username}/history/json`);
-    if (!historyRes.ok) throw new Error(`HTTP ${historyRes.status}`);
-    const contests = await historyRes.json();
+    const historyData = await fetchWithProxy(`https://atcoder.jp/users/${username}/history/json`);
+    const contests = typeof historyData === 'string' ? JSON.parse(historyData) : historyData;
 
-    return contests
+    return (contests || [])
       .map((c) => ({
         contestSlug:  c.ContestScreenName        ?? '',
         contestName:  c.ContestName      ?? 'N/A',
