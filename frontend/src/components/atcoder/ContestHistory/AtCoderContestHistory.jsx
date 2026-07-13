@@ -47,9 +47,7 @@ export default function AtCoderContestHistory({ history }) {
           <thead>
             <tr>
               <th>Contest</th>
-              <th>Type</th>
               <th>Rank</th>
-              <th>Perf</th>
               <th>Old</th>
               <th>New</th>
               <th>Change</th>
@@ -60,7 +58,6 @@ export default function AtCoderContestHistory({ history }) {
           <tbody>
             {filtered.map((row, i) => {
               const info = getRankInfo(row.newRating ?? 0);
-              const perfInfo = getRankInfo(row.performance ?? 0);
               const change = row.change ?? 0;
 
               return (
@@ -76,22 +73,7 @@ export default function AtCoderContestHistory({ history }) {
                     </a>
                   </td>
 
-                  <td>
-                    <span className="ach-type-badge">
-                      {row.contestType ?? 'N/A'}
-                    </span>
-                  </td>
-
                   <td>#{row.rank ?? 'N/A'}</td>
-
-                  <td
-                    style={{
-                      color: perfInfo.color,
-                      fontWeight: 600,
-                    }}
-                  >
-                    {row.performance ?? 'N/A'}
-                  </td>
 
                   <td>{row.oldRating ?? 'N/A'}</td>
 

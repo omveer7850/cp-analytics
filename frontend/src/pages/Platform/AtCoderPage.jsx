@@ -153,55 +153,7 @@ export default function AtCoderPage() {
             )
           }
 
-          {(Object.keys(submissions.stats).length > 0 || submissions.recent.length > 0) && (
-            <div className="acp-subs-row">
-              {Object.keys(submissions.stats).length > 0 && (
-                <div className="acp-card acp-sub-stats-card">
-                  <div className="acp-section-title">Submission Statistics</div>
-                  <div className="acp-sub-stats">
-                    {Object.entries(submissions.stats).map(([result, count]) => (
-                      <div key={result} className="acp-sub-stat-card">
-                        <span className="acp-sub-result"
-                          style={{ color: RESULT_COLORS[result] ?? '#666', background: (RESULT_COLORS[result] ?? '#666') + '18', border: `1px solid ${(RESULT_COLORS[result] ?? '#666')}40` }}>
-                          {result}
-                        </span>
-                        <span className="acp-sub-count">{count}</span>
-                        <span className="acp-sub-lbl">submissions</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {submissions.recent.length > 0 && (
-                <div className="acp-card acp-recent-card">
-                  <div className="acp-section-title">Recent Accepted Submissions</div>
-                  <div className="acp-recent-list">
-                    {submissions.recent.map((s, i) => (
-                      <div key={i} className="acp-recent-item">
-                        <span className="acp-recent-badge acp-badge--ac">AC</span>
-                        <span className="acp-recent-problem">
-                          <a href={`https://atcoder.jp/contests/${s.contest}/tasks/${s.problemId}`}
-                            target="_blank" rel="noopener noreferrer" className="acp-recent-link">
-                            {s.problemId}
-                          </a>
-                        </span>
-                        <div className="acp-recent-meta">
-                          <span className="acp-recent-lang">{s.language}</span>
-                          <span className="acp-meta-sep">·</span>
-                          <span>⏱ {s.time}ms</span>
-                          <span className="acp-meta-sep">·</span>
-                          <span>💾 {s.memory}KB</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {}
+          {/* Contest History */}
           {history.length > 0
             ? <AtCoderContestHistory history={history} />
             : (
@@ -211,6 +163,33 @@ export default function AtCoderPage() {
               </div>
             )
           }
+
+          {/* Recent AC Submissions */}
+          {submissions.recent.length > 0 && (
+            <div className="acp-card">
+              <div className="acp-section-title">Recent Accepted Submissions</div>
+              <div className="acp-recent-list">
+                {submissions.recent.map((s, i) => (
+                  <div key={i} className="acp-recent-item">
+                    <span className="acp-recent-badge acp-badge--ac">AC</span>
+                    <span className="acp-recent-problem">
+                      <a href={`https://atcoder.jp/contests/${s.contest}/tasks/${s.problemId}`}
+                        target="_blank" rel="noopener noreferrer" className="acp-recent-link">
+                        {s.problemId}
+                      </a>
+                    </span>
+                    <div className="acp-recent-meta">
+                      <span className="acp-recent-lang">{s.language}</span>
+                      <span className="acp-meta-sep">·</span>
+                      <span>⏱ {s.time}ms</span>
+                      <span className="acp-meta-sep">·</span>
+                      <span>💾 {s.memory}KB</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>
