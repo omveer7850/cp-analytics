@@ -10,7 +10,7 @@ export function getRankInfo(rating) {
   return               { rank: 'Unrated', color: '#808080' };
 }
 
-async function fetchWithTimeout(url, options = {}, timeout = 8000) {
+async function fetchWithTimeout(url, options = {}, timeout = 15000) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
   try {
@@ -27,20 +27,20 @@ async function fetchWithProxy(targetUrl) {
   let lastError;
 
   try {
-    const res = await fetchWithTimeout(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`, {}, 8000);
+    const res = await fetchWithTimeout(`https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, {}, 15000);
     if (res.ok) {
-      const text = await res.text();
-      if (text) return text;
+      const data = await res.json();
+      if (data.contents) return data.contents;
     }
   } catch (err) {
     lastError = err;
   }
 
   try {
-    const res = await fetchWithTimeout(`https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, {}, 8000);
+    const res = await fetchWithTimeout(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`, {}, 15000);
     if (res.ok) {
-      const data = await res.json();
-      if (data.contents) return data.contents;
+      const text = await res.text();
+      if (text) return text;
     }
   } catch (err) {
     lastError = err;
