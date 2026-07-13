@@ -17,12 +17,13 @@ export default function AtCoderRatingGraph({ history }) {
   const [tooltip, setTooltip] = useState(null);
   const [range, setRange] = useState(25);
 
-  if (!history.length) return null;
-
   const filteredHistory = useMemo(() => {
+    if (!history || !history.length) return [];
     if (range === "all") return history;
     return history.slice(-range);
   }, [history, range]);
+
+  if (!history || !history.length) return null;
 
   const W = 640;
   const H = 240;

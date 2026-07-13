@@ -67,7 +67,7 @@ export default function CodechefPage() {
       setData(null);
     }
     
-  }, [user]);
+  }, [user, loadUser]);
 
   function handleSearch() {
     const t = input.trim();

@@ -5,14 +5,14 @@ export default function TopicAnalysis({ topics }) {
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('solved');
 
-  // Check if topics exists and is an array
-  const safeTopics = Array.isArray(topics) ? topics : [];
-
   const filtered = useMemo(() => {
-    return safeTopics
+    const list = Array.isArray(topics) ? topics : [];
+    return list
       .filter((t) => t?.topic?.toLowerCase().includes(search.toLowerCase()))
       .sort((a, b) => sortBy === 'solved' ? (b.solved || 0) - (a.solved || 0) : (a.topic || '').localeCompare(b.topic || ''));
-  }, [safeTopics, search, sortBy]);
+  }, [topics, search, sortBy]);
+
+  const safeTopics = Array.isArray(topics) ? topics : [];
 
   if (safeTopics.length === 0) {
     return (

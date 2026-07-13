@@ -87,7 +87,7 @@ export default function LeetCodePage() {
       setData(null);
     }
 
-  }, [user]);
+  }, [user, loadUser]);
 
   function handleSearch() {
     const trimmed = input.trim();
