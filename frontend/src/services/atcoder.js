@@ -10,11 +10,24 @@ export function getRankInfo(rating) {
   return               { rank: 'Unrated', color: '#808080' };
 }
 
+async function fetchWithTimeout(url, options = {}, timeout = 5000) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(id);
+    return response;
+  } catch (err) {
+    clearTimeout(id);
+    throw err;
+  }
+}
+
 async function fetchWithProxy(targetUrl) {
   let lastError;
 
   try {
-    const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`);
+    const res = await fetchWithTimeout(`https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, {}, 5000);
     if (res.ok) {
       const data = await res.json();
       if (data.contents) return data.contents;
@@ -24,7 +37,7 @@ async function fetchWithProxy(targetUrl) {
   }
 
   try {
-    const res = await fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`);
+    const res = await fetchWithTimeout(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`, {}, 5000);
     if (res.ok) {
       const text = await res.text();
       if (text) return text;
