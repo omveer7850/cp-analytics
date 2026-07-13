@@ -227,3 +227,21 @@
 @media (max-width: 768px) {
   .acp-page { padding: 16px; }
 }
+
+.acp-subs-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.acp-sub-stats-card, .acp-recent-card {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .acp-subs-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

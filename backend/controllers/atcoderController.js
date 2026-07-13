@@ -58,18 +58,18 @@ exports.getProfile = async (req, res) => {
     stats.forEach((item) => {
       if (item.new_rating) {
         maxRating = Math.max(maxRating, item.new_rating);
+        userContests.push({
+          userRank: item.place || 0,
+          userOldRating: item.old_rating || 0,
+          userNewRating: item.new_rating || 0,
+          userRatingChange: (item.new_rating && item.old_rating) ? (item.new_rating - item.old_rating) : 0,
+          contestName: item.event || 'N/A',
+          userPerformance: 0,
+          contestEndTime: item.date,
+          isRated: true,
+          contestId: String(item.contest_id)
+        });
       }
-      userContests.push({
-        userRank: item.place || 0,
-        userOldRating: item.old_rating || 0,
-        userNewRating: item.new_rating || 0,
-        userRatingChange: (item.new_rating && item.old_rating) ? (item.new_rating - item.old_rating) : 0,
-        contestName: item.event || 'N/A',
-        userPerformance: 0,
-        contestEndTime: item.date,
-        isRated: !!item.new_rating,
-        contestId: String(item.contest_id)
-      });
     });
 
     res.json({
@@ -80,7 +80,7 @@ exports.getProfile = async (req, res) => {
       userRating: account.rating || 0,
       userMaxRating: maxRating,
       userLastCompeted: account.last_activity ? account.last_activity.split('T')[0] : 'N/A',
-      userContestCount: account.n_contests || 0,
+      userContestCount: userContests.length,
       userContests: userContests
     });
   } catch (err) {
@@ -110,18 +110,20 @@ exports.getHistory = async (req, res) => {
     });
 
     const stats = statsRes.data?.objects || [];
-    const contests = stats.map((item) => ({
-      contestSlug: String(item.contest_id),
-      contestName: item.event || 'N/A',
-      contestType: item.new_rating ? 'Rated' : 'Unrated',
-      rank: item.place || 'N/A',
-      performance: 0,
-      oldRating: item.old_rating || 0,
-      newRating: item.new_rating || 0,
-      change: (item.new_rating && item.old_rating) ? (item.new_rating - item.old_rating) : 0,
-      date: item.date ? item.date.split('T')[0] : 'N/A',
-      url: `https://atcoder.jp/contests/`
-    }));
+    const contests = stats
+      .filter((item) => item.new_rating)
+      .map((item) => ({
+        contestSlug: String(item.contest_id),
+        contestName: item.event || 'N/A',
+        contestType: 'Rated',
+        rank: item.place || 'N/A',
+        performance: 0,
+        oldRating: item.old_rating || 0,
+        newRating: item.new_rating || 0,
+        change: (item.new_rating && item.old_rating) ? (item.new_rating - item.old_rating) : 0,
+        date: item.date ? item.date.split('T')[0] : 'N/A',
+        url: `https://atcoder.jp/contests/`
+      }));
 
     res.json(contests);
   } catch (err) {
