@@ -6,7 +6,9 @@ A premium, real-time developer dashboard designed to track, visualize, and compa
 
 A walkthrough of CP Analytics in action:
 
-<video src="./demo-walkthrough.mp4" autoplay loop muted playsinline width="100%"></video>
+> [!IMPORTANT]
+> **[▶️ Click here to watch the Video Walkthrough](https://github.com/omveer7850/cp-analytics/blob/main/demo-walkthrough.mp4)**
+> *(This will open a full-screen video player in GitHub showing the app walkthrough)*
 
 > [!TIP]
 > **How to add your video/GIF:**
