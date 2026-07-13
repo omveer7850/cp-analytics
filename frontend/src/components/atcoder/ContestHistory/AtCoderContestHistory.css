@@ -61,7 +61,7 @@
 .ach-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; /* Fix: Columns ko control karne ke liye */
+  table-layout: auto;
   font-size: 12px;
 }
 
