@@ -13,10 +13,23 @@ CP Tracker is a professional, unified developer dashboard engineered to track, v
 
 ---
 
-## 🖼 Screenshots
-| Dashboard (Light/Dark) | Competitor Comparison | DSA Sheet Tracking |
+## 🖼 Project Screenshots
+
+<div align="center">
+
+| Dashboard Overview | Dark Mode Dashboard | Platform Stats |
 | :---: | :---: | :---: |
-| ![Dashboard](https://github.com/omveer7850/cp-analytics/blob/main/images/1000143633.jpg) | ![Compare](https://github.com/omveer7850/cp-analytics/blob/main/images/1000143640.jpg) | ![DSA](https://github.com/omveer7850/cp-analytics/blob/main/images/1000143638.jpg) |
+| ![Dashboard](1000143633.jpg) | ![Dark Mode](1000143634.jpg) | ![Platform Stats](1000143635.jpg) |
+
+| Rating History | Contest History | DSA Sheet Tracker |
+| :---: | :---: | :---: |
+| ![Rating History](1000143636.jpg) | ![Contest History](1000143637.jpg) | ![DSA Sheet](1000143638.jpg) |
+
+| Upcoming Contests | Competitor Comparison |
+| :---: | :---: |
+| ![Contests](1000143639.jpg) | ![Comparison](1000143640.jpg) |
+
+</div>
 
 ---
 
