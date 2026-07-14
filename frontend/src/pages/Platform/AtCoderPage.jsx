@@ -16,8 +16,7 @@ import EmptyState          from '../../components/leetcode/EmptyState/EmptyState
 
 import './AtCoderPage.css';
 
-// scoped per logged-in user, so one account's last-searched username
-// never leaks into another account on the same browser
+
 const lsKeyFor = (uid) => `ac_last_username_${uid}`;
 
 export default function AtCoderPage() {
