@@ -4,7 +4,10 @@
 [![GitHub forks](https://img.shields.io/github/forks/omveer7850/cp-analytics?style=social)](https://github.com/omveer7850/cp-analytics)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-> **Tagline:** "One dashboard for your entire competitive programming journey."
+> **Tagline:** A unified, data-driven dashboard for competitive programming analytics and DSA training.
+> 
+> 🌐 **Live App:** [cp-profile-hub.vercel.app](https://cp-profile-hub.vercel.app)
+
 ---
 
 ## 📖 Project Overview
