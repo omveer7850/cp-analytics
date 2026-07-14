@@ -1,60 +1,54 @@
-# CP Tracker 🚀
+# CP Analytics 🚀
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/yourusername/cp-tracker?style=social)](https://github.com/yourusername/cp-tracker)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/cp-tracker?style=social)](https://github.com/yourusername/cp-tracker)
+[![GitHub Repo stars](https://img.shields.io/github/stars/omveer7850/cp-analytics?style=social)](https://github.com/omveer7850/cp-analytics)
+[![GitHub forks](https://img.shields.io/github/forks/omveer7850/cp-analytics?style=social)](https://github.com/omveer7850/cp-analytics)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-> **One-line Tagline:** A unified dashboard for competitive programming analytics and DSA training.
+> **Elevator Pitch:** CP Analytics is a professional, unified developer dashboard engineered to track, visualize, and benchmark competitive programming performance across LeetCode and AtCoder.
 
 ---
 
 ## 📖 Project Overview
-Competitive programmers often struggle to maintain a holistic view of their progress across different platforms like LeetCode, Codeforces, and AtCoder. **CP Tracker** solves this by aggregating data, visualizing growth trends, and providing advanced comparison tools to optimize your training regimen. Whether you are prepping for FAANG interviews or climbing the leaderboard, this dashboard turns raw data into a roadmap for mastery.
+Competitive programmers often struggle to maintain a holistic view of their progress across multiple platforms. **CP Analytics** solves this by providing a centralized hub for real-time rating tracking and performance analysis. Designed for developers who value data-driven growth, this tool streamlines the process of monitoring your technical progression and comparing it against competitive peers.
 
 ---
 
-## 🎥 Project Demo
-*(Recruiters prefer video demos over screenshots. Click the image below to watch the walkthrough)*
+## 🖼 Screenshots
+*(Add your project screenshots here to grab recruiter attention)*
 
-[![Watch the demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+| Dashboard Overview | Competitor Comparison |
+| :---: | :---: |
+| 🚧 [Insert Screenshot] | 🚧 [Insert Screenshot] |
 
 ---
 
-## ⚡ Features
+## ⚡ Key Features
 
 ### 📊 Dashboard & Analytics
-*   **Platform Integration:** Real-time synchronization with major competitive programming platforms.
-*   **Performance Visualization:** Advanced charts displaying rating history, contest participation, and problem-solving velocity.
-*   **Dynamic Filtering:** Analyze your performance over various time windows (Last 10, 25, 50, and All-time).
-*   **Competitor Comparison:** Side-by-side benchmarking against peers with automated performance highlighting.
+*   **Unified Tracking:** Real-time rating graphs and comprehensive stats for both LeetCode and AtCoder in a single, high-performance interface.
+*   **Interactive Analytics:** History tracking with dynamic filtering (Last 10, 25, 50, and All-time contests).
+*   **Competitor Compare Mode:** Side-by-side benchmarking with intelligent stat-highlighting to identify strengths and weaknesses.
 
-### 📚 DSA & Progress Tracking
-*   **DSA Sheet Integration:** Track your completion progress on industry-standard coding sheets.
-*   **Progress Indicators:** Visual progress bars for topic-wise mastery.
-*   **Submission History:** Persistent storage and retrieval of past coding attempts.
-
-### 🎨 UI/UX & Core Experience
-*   **Responsive Dark Theme:** A premium, eye-friendly layout optimized for long study sessions.
-*   **Secure Auth:** Robust account management with session persistence powered by Supabase.
-*   **Optimized Performance:** Seamless UX with skeleton loaders and micro-animations.
+### 🔐 Security & UX
+*   **Secure Authentication:** Session persistence and user profile management powered by Supabase Auth.
+*   **Premium UI:** Highly responsive, dark-themed dashboard built with optimized Vanilla CSS for a smooth developer experience.
 
 ---
 
 ## 🛠 Tech Stack
-*   **Frontend:** React, Vite, React Router, Custom Vanilla CSS
-*   **Backend:** Node.js, Express
-*   **Database:** Supabase (PostgreSQL)
-*   **Authentication:** Supabase Auth
-*   **APIs:** Clist API, Kenkoooo API, Alfa LeetCode API
+*   **Frontend:** React (Vite), React Router, Vanilla CSS
+*   **Backend:** Node.js, Express, Axios
+*   **Database & Auth:** Supabase (PostgreSQL)
+*   **APIs:** Clist API (v4), Kenkoooo API (v3), Alfa LeetCode API
 
 ---
 
-## 📂 Folder Structure
+## 📂 Project Structure
 ```text
-cp-tracker/
+cp-analytics/
 ├── backend/            # Express.js API server
-│   ├── controllers/    # API handlers & integration logic
-│   ├── routes/         # API endpoint definitions
+│   ├── controllers/    # API logic (Clist & Kenkoooo integration)
+│   ├── routes/         # API routes
 │   └── server.js       # App entry point
 ├── frontend/           # React SPA
 │   ├── src/
