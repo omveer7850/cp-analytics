@@ -68,17 +68,17 @@ CP Tracker is a professional, unified developer dashboard engineered to track, v
 ### Frontend Setup
 Create a `.env` file in the `frontend/` directory:
 ```env
-VITE_API_URL=
-VITE_SUPABASE_URL=
-VITE_SUPABASE_ANON_KEY=
+VITE_API_URL=//localhost:5001;
+VITE_SUPABASE_URL=https://pmjlwuanrcoekvlimjrr.supabase.co;
+
 ```
 
 ### Backend Setup
 Create a `.env` file in the `backend/` directory:
 ```env
-PORT=5001
-CLIST_USERNAME=omveer_01
-CLIST_API_KEY=9942249332432efd464da19d58a0ae52eede4d1d
+PORT=5001;
+CLIST_USERNAME=omveer_01;
+CLIST_API_KEY=9942249332432efd464da19d58a0ae52eede4d1d;
 ```
 
 ---
