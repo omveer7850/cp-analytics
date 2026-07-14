@@ -15,6 +15,27 @@ CP Tracker is a professional, unified developer dashboard engineered to track, v
 
 ---
 
+## 🧱 System Architecture
+
+```text
+Frontend (React)
+      │
+      ▼
+Backend (Express)
+      │
+      ▼
+External APIs
+ ├── LeetCode
+ ├── Codeforces
+ ├── AtCoder
+ └── CodeChef
+      │
+      ▼
+Supabase
+```
+
+---
+
 ## 🖼 Project Screenshots
 
 <div align="center">
@@ -60,6 +81,26 @@ CP Tracker is a professional, unified developer dashboard engineered to track, v
 *   **Backend:** Node.js, Express
 *   **Database & Auth:** Supabase (PostgreSQL)
 *   **APIs:** Clist API, Kenkoooo API, Alfa LeetCode API
+
+---
+
+## 🔑 Environment Variables
+
+### Frontend Setup
+Create a `.env` file in the `frontend/` directory:
+```env
+VITE_API_URL=
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+```
+
+### Backend Setup
+Create a `.env` file in the `backend/` directory:
+```env
+PORT=5001
+CLIST_USERNAME=
+CLIST_API_KEY=
+```
 
 ---
 
