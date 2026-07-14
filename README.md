@@ -3,10 +3,31 @@
 [![GitHub Repo stars](https://img.shields.io/github/stars/omveer7850/cp-analytics?style=social)](https://github.com/omveer7850/cp-analytics)
 [![GitHub forks](https://img.shields.io/github/forks/omveer7850/cp-analytics?style=social)](https://github.com/omveer7850/cp-analytics)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Bundler-Vite-646CFF?logo=vite&logoColor=white)
+![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Server-Express-000000?logo=express&logoColor=white)
+![Supabase](https://img.shields.io/badge/Database%20%26%20Auth-Supabase-3ECF8E?logo=supabase&logoColor=white)
+![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000?logo=vercel&logoColor=white)
 
 > **Tagline:** A unified, data-driven dashboard for competitive programming analytics and DSA training.
-> 
+>
 > 🌐 **Live App:** [cp-profile-hub.vercel.app](https://cp-profile-hub.vercel.app)
+
+---
+
+## 📑 Table of Contents
+- [Project Overview](#-project-overview)
+- [Project Screenshots](#-project-screenshots)
+- [Key Features](#-key-features)
+- [Tech Stack](#-tech-stack)
+- [Environment Variables](#-environment-variables)
+- [System Architecture](#-system-architecture)
+- [Folder Structure](#-folder-structure)
+- [Installation & Running Locally](#️-installation--running-locally)
+- [Deployment](#️-deployment)
+- [Contributors](#-contributors)
+- [License](#-license)
 
 ---
 
@@ -60,25 +81,28 @@ CP Tracker is a professional, unified developer dashboard engineered to track, v
 *   **Backend:** Node.js, Express
 *   **Database & Auth:** Supabase (PostgreSQL)
 *   **APIs:** Clist API, Kenkoooo API, Alfa LeetCode API
+*   **Deployment:** Vercel
 
 ---
 
 ## 🔑 Environment Variables
 
+> ⚠️ **Security note:** Never commit real credentials to your repository or README. Replace every placeholder below with your own values in a local `.env` file, and make sure `.env` is listed in `.gitignore` before pushing.
+
 ### Frontend Setup
 Create a `.env` file in the `frontend/` directory:
 ```env
-VITE_API_URL=//localhost:5001;
-VITE_SUPABASE_URL=https://pmjlwuanrcoekvlimjrr.supabase.co;
-
+VITE_API_URL=http://localhost:5001
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
 ### Backend Setup
 Create a `.env` file in the `backend/` directory:
 ```env
-PORT=5001;
-CLIST_USERNAME=omveer_01;
-CLIST_API_KEY=9942249332432efd464da19d58a0ae52eede4d1d;
+PORT=5001
+CLIST_USERNAME=your_clist_username
+CLIST_API_KEY=your_clist_api_key
 ```
 
 ---
@@ -117,3 +141,58 @@ cp-analytics/
 │   │   ├── services/   # API client utilities
 │   │   └── App.jsx     # Main layout & routing
 └── ...
+```
+
+---
+
+## ⚙️ Installation & Running Locally
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/omveer7850/cp-analytics.git
+cd cp-analytics
+
+# 2. Install backend dependencies
+cd backend
+npm install
+
+# 3. Install frontend dependencies
+cd ../frontend
+npm install
+```
+
+Add your `.env` files as described in [Environment Variables](#-environment-variables), then run each part in its own terminal:
+
+```bash
+# Start the backend (from /backend)
+node server.js
+# → runs on http://localhost:5001
+
+# Start the frontend (from /frontend)
+npm run dev
+# → runs on http://localhost:5174
+```
+
+---
+
+## ☁️ Deployment
+
+CP Tracker is deployed on **Vercel**:
+
+🔗 **[https://cp-profile-hub.vercel.app](https://cp-profile-hub.vercel.app)**
+
+---
+
+## 👤 Contributors
+
+<a href="https://github.com/omveer7850">
+  <img src="https://github.com/omveer7850.png" width="60" style="border-radius:50%" alt="omveer7850" />
+</a>
+
+**[Omveer Singh](https://github.com/omveer7850)** — Creator & Maintainer
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
