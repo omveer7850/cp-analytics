@@ -40,17 +40,17 @@ CP Tracker is a professional, unified developer dashboard engineered to track, v
 
 <div align="center">
 
-| Dashboard Overview | Dark Mode Dashboard | Platform Stats |
+| User Login Screen | Dashboard Overview | Dark Mode Dashboard |
 | :---: | :---: | :---: |
-| ![Dashboard](./images/Screenshot%20(6).png) | ![Dark Mode](./images/Screenshot%20(27).png) | ![Platform Stats](./images/Screenshot%20(13).png) |
+| ![Login](./images/Screenshot%20(28).png) | ![Dashboard](./images/Screenshot%20(6).png) | ![Dark Mode](./images/Screenshot%20(27).png) |
 
-| Rating History | Contest History | DSA Sheet Tracker |
+| Platform Stats | Rating History | Contest History |
 | :---: | :---: | :---: |
-| ![Rating History](./images/Screenshot%20(15).png) | ![Contest History](./images/Screenshot%20(10).png) | ![DSA Sheet](./images/Screenshot%20(20).png) |
+| ![Platform Stats](./images/Screenshot%20(13).png) | ![Rating History](./images/Screenshot%20(15).png) | ![Contest History](./images/Screenshot%20(10).png) |
 
-| Upcoming Contests | Competitor Comparison |
-| :---: | :---: |
-| ![Contests](./images/Screenshot%20(24).png) | ![Comparison](./images/Screenshot%20(22).png) |
+| DSA Sheet Tracker | Upcoming Contests | Competitor Comparison |
+| :---: | :---: | :---: |
+| ![DSA Sheet](./images/Screenshot%20(20).png) | ![Contests](./images/Screenshot%20(24).png) | ![Comparison](./images/Screenshot%20(22).png) |
 
 </div>
 
