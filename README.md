@@ -98,8 +98,8 @@ VITE_SUPABASE_ANON_KEY=
 Create a `.env` file in the `backend/` directory:
 ```env
 PORT=5001
-CLIST_USERNAME=
-CLIST_API_KEY=
+CLIST_USERNAME=omveer_01
+CLIST_API_KEY=9942249332432efd464da19d58a0ae52eede4d1d
 ```
 
 ---
