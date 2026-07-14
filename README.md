@@ -4,42 +4,47 @@
 [![GitHub forks](https://img.shields.io/github/forks/omveer7850/cp-analytics?style=social)](https://github.com/omveer7850/cp-analytics)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-> **Elevator Pitch:** CP Analytics is a professional, unified developer dashboard engineered to track, visualize, and benchmark competitive programming performance across LeetCode and AtCoder.
+> **Elevator Pitch:** CP Analytics is a comprehensive developer dashboard designed to aggregate, visualize, and benchmark competitive programming performance across multiple global platforms.
 
 ---
 
 ## 📖 Project Overview
-Competitive programmers often struggle to maintain a holistic view of their progress across multiple platforms. **CP Analytics** solves this by providing a centralized hub for real-time rating tracking and performance analysis. Designed for developers who value data-driven growth, this tool streamlines the process of monitoring your technical progression and comparing it against competitive peers.
+Competitive programmers often struggle to track their progress across fragmented platforms. **CP Analytics** serves as a unified command center, providing real-time data synchronization, historical analytics, and performance comparison tools. Whether you are prepping for coding interviews or tracking contest growth, this dashboard transforms raw platform data into clear, actionable insights.
 
 ---
 
 ## 🖼 Screenshots
 *(Add your project screenshots here to grab recruiter attention)*
 
-| Dashboard Overview | Competitor Comparison |
-| :---: | :---: |
-| 🚧 [Insert Screenshot] | 🚧 [Insert Screenshot] |
+| Dashboard Overview | Platform Analytics | Competitor Comparison |
+| :---: | :---: | :---: |
+| 🚧 [Insert Screenshot] | 🚧 [Insert Screenshot] | 🚧 [Insert Screenshot] |
 
 ---
 
 ## ⚡ Key Features
 
-### 📊 Dashboard & Analytics
-*   **Unified Tracking:** Real-time rating graphs and comprehensive stats for both LeetCode and AtCoder in a single, high-performance interface.
-*   **Interactive Analytics:** History tracking with dynamic filtering (Last 10, 25, 50, and All-time contests).
-*   **Competitor Compare Mode:** Side-by-side benchmarking with intelligent stat-highlighting to identify strengths and weaknesses.
+### 📊 Comprehensive Analytics
+*   **Unified Multi-Platform Tracking:** Aggregates performance data from LeetCode, AtCoder, Codeforces, and other major platforms.
+*   **Real-time Rating Graphs:** Visualize your rating trajectory across different contests with interactive charts.
+*   **Contest History:** Deep-dive into past performances with filters for specific date ranges and platforms.
+*   **Advanced Statistics:** Detailed breakdown of solved problems, contest ranks, and historical consistency.
 
-### 🔐 Security & UX
-*   **Secure Authentication:** Session persistence and user profile management powered by Supabase Auth.
-*   **Premium UI:** Highly responsive, dark-themed dashboard built with optimized Vanilla CSS for a smooth developer experience.
+### 👥 Peer Benchmarking
+*   **Competitor Comparison:** Side-by-side performance analysis with peers.
+*   **Dynamic Highlighting:** Automated detection and visual highlighting of superior metrics in comparison views.
+
+### 🔐 Security & UI
+*   **Secure Authentication:** User data and session management powered by Supabase Auth.
+*   **Premium Dark-Mode UI:** A high-contrast, responsive interface built for a professional developer experience.
 
 ---
 
 ## 🛠 Tech Stack
-*   **Frontend:** React (Vite), React Router, Vanilla CSS
+*   **Frontend:** React (Vite), React Router, Custom Vanilla CSS
 *   **Backend:** Node.js, Express, Axios
 *   **Database & Auth:** Supabase (PostgreSQL)
-*   **APIs:** Clist API (v4), Kenkoooo API (v3), Alfa LeetCode API
+*   **Integrations:** Clist API, Kenkoooo API, Alfa LeetCode API
 
 ---
 
@@ -47,12 +52,13 @@ Competitive programmers often struggle to maintain a holistic view of their prog
 ```text
 cp-analytics/
 ├── backend/            # Express.js API server
-│   ├── controllers/    # API logic (Clist & Kenkoooo integration)
-│   ├── routes/         # API routes
+│   ├── controllers/    # API integration & data processing
+│   ├── routes/         # API endpoint definitions
 │   └── server.js       # App entry point
 ├── frontend/           # React SPA
 │   ├── src/
 │   │   ├── components/ # Reusable UI widgets
-│   │   ├── services/   # API client utilities
-│   │   └── App.jsx     # Routing & Main Layout
+│   │   ├── compare/    # Comparison logic & views
+│   │   ├── services/   # Third-party API client utilities
+│   │   └── App.jsx     # Main layout & routing
 └── ...
