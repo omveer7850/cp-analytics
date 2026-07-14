@@ -23,12 +23,7 @@ const LANG_COLOR  = { 'cpp': '#00599c', 'python': '#3572a5', 'python3': '#3572a5
 
 const lsKeyFor = (uid) => `lc_last_username_${uid}`;
 
-// LeetCode's public API/proxy is easily tripped by simultaneous requests
-// for the same user. Firing all 5 calls in the same instant (the old
-// Promise.all) is what was causing the 429s / JSON parse errors. This
-// helper runs a list of fetchers one at a time with a stagger between
-// each — cleaner and less error-prone than repeating `await delay(...)`
-// five times by hand.
+
 const SUB_CALL_STAGGER_MS = 300;
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
