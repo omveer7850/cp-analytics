@@ -14,11 +14,6 @@ Competitive programmers often struggle to track their progress across fragmented
 ---
 
 ## 🖼 Screenshots
-*(Add your project screenshots here to grab recruiter attention)*
-
-| Dashboard Overview | Platform Analytics | Competitor Comparison |
-| :---: | :---: | :---: |
-| 🚧 [Insert Screenshot] | 🚧 [Insert Screenshot] | 🚧 [Insert Screenshot] |
 
 ---
 
