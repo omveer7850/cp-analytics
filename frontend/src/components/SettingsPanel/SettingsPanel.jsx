@@ -6,6 +6,7 @@ import {
   savePlatformData,
   resetAllSheetsProgress,
   clearAllAppData,
+  logActivity,
 } from '../../services/supabaseService';
 import { fetchLeetCodeProfile, fetchLeetCodeSolved } from '../../services/leetcode';
 import { fetchCFUser } from '../../services/codeforces';
@@ -100,6 +101,7 @@ export default function SettingsPanel({ onClose }) {
         setSyncMsg('No platforms connected yet.');
         return;
       }
+      logActivity(user.id, 'platform_sync', { type: 'all', count: keys.length, platforms: keys });
       let succeeded = 0;
       for (const key of keys) {
         try {

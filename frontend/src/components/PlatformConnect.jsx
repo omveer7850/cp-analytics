@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { getPlatforms, savePlatformUsername, savePlatformData } from '../services/supabaseService';
+import { getPlatforms, savePlatformUsername, savePlatformData, logActivity } from '../services/supabaseService';
 import './PlatformConnect.css';
 
 /**
@@ -62,6 +62,7 @@ export default function PlatformConnect({ platform, label, fetchProfile, onData 
       if (cancelledRef) return;
       onData?.(data);
       await savePlatformData(user.id, platform, data);
+      logActivity(user.id, 'platform_sync', { type: 'single', platform, username: usernameToFetch });
     } catch (err) {
       if (!cancelledRef) setError('Failed to fetch latest data.');
     } finally {

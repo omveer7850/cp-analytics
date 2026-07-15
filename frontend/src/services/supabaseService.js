@@ -120,3 +120,15 @@ export async function clearAllAppData(uid) {
   await resetAllSheetsProgress(uid);
   await updateProfile(uid, { university: '', bio: '', linkedin: '' });
 }
+
+export async function logActivity(uid, activityType, details = {}) {
+  const { error } = await supabase.from('activity_log').insert({
+    user_id: uid,
+    activity_type: activityType,
+    details: details,
+    created_at: new Date().toISOString()
+  });
+  if (error) {
+    console.error('logActivity error:', error.message);
+  }
+}

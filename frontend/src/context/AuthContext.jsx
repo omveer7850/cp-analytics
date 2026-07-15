@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
-import { upsertProfile } from '../services/supabaseService';
+import { upsertProfile, logActivity } from '../services/supabaseService';
 
 const AuthContext = createContext(null);
 
@@ -12,13 +12,27 @@ export function AuthProvider({ children }) {
    
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        if (!sessionStorage.getItem('logged_app_load')) {
+          logActivity(session.user.id, 'app_load', { context: 'get_session' });
+          sessionStorage.setItem('logged_app_load', 'true');
+        }
+      }
       setLoading(false);
     });
 
    
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
-      if (session?.user) upsertProfile(session.user);
+      if (session?.user) {
+        upsertProfile(session.user);
+        if (_event === 'SIGNED_IN' || _event === 'INITIAL_SESSION') {
+          if (!sessionStorage.getItem('logged_app_load')) {
+            logActivity(session.user.id, 'app_load', { event: _event });
+            sessionStorage.setItem('logged_app_load', 'true');
+          }
+        }
+      }
     });
 
     return () => listener.subscription.unsubscribe();
