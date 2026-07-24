@@ -32,7 +32,7 @@
 ---
 
 ## 📖 Project Overview
-CP Tracker is a professional, unified developer dashboard engineered to track, visualize, and benchmark competitive programming performance across multiple global platforms including LeetCode, Codeforces, AtCoder, and CodeChef. Designed for developers who value data-driven growth, this tool streamlines the process of monitoring technical progression and comparing performance against peers.
+CP Analytics is a professional, unified developer dashboard engineered to track, visualize, and benchmark competitive programming performance across multiple global platforms including LeetCode, Codeforces, AtCoder, and CodeChef. Designed for developers who value data-driven growth, this tool streamlines the process of monitoring technical progression and comparing performance against peers.
 
 ---
 
@@ -177,7 +177,7 @@ npm run dev
 
 ## ☁️ Deployment
 
-CP Tracker is deployed on **Vercel**:
+CP Analytics is deployed on **Vercel**:
 
 🔗 **[https://cp-profile-hub.vercel.app](https://cp-profile-hub.vercel.app)**
 
